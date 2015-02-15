@@ -6,6 +6,8 @@ using std::cout;
 using std::endl;
 #include <cstdlib>
 #include <cstdio>
+#include <cstdlib>
+#include <cstdio>
 
 #include <algorithm>
 #include <cstring>
@@ -217,6 +219,40 @@ class Solution{
             }
         }
         match(board);
+    }
+
+    void debug2(){
+        int k = 3;
+        //for(int i = 0, t = k; i < 4; ++i, t = R[t]){
+            //cout << t << " ";
+        //}
+        //cout << endl;
+        for(int r = D[k]; r != k; r = D[r]){
+            for(int i = 0, t = r; i < 4; ++i, t = R[t]){
+                int pt = 0;
+                switch(i){
+                    case 0: pt = C[t]; break;
+                    case 1: pt = (C[t] - cr_s) % 9 + 1; break;
+                    case 2: pt = (C[t] - cc_s) % 9 + 1; break;
+                    case 3: pt = (C[t] - cx_s) % 9 + 1; break;
+                    default: break;
+                }
+                cout << pt  << " ";
+            }
+            cout << endl;
+
+        }
+        
+    }
+    void debug(){
+        int x, y, num;
+        while(cin >> x >> y >> num){
+            auto t = REM[x][y][num - 1];
+            for(int i = 0; i < 4; ++i, t = R[t]){
+                cout << C[t] << " ";
+            }
+            cout << endl;
+        }
     }
 };
 
