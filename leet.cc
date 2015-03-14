@@ -23,7 +23,7 @@ struct ListNode{
         auto p = vals.begin();
         this->val = *p;
         auto last = this;
-        for( ; p != vals.end(); ++p){
+        for(++p; p != vals.end(); ++p){
             last->next = new ListNode(*p);
             last = last->next;
         }
