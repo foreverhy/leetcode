@@ -83,7 +83,7 @@ class Serialize{
         if (leftpos < vals.size()){
             head->left  = tnode(vals, leftpos);
         }
-        size_t rightpos = (cnt << 1) | 1;
+        size_t rightpos = (cnt << 1) | 2;
         if (rightpos < vals.size()){
             head->right = tnode(vals, rightpos);
         }
