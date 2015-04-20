@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+//#include <map>
+#include <queue>
 
 using std::vector;
 using std::string;
@@ -31,8 +33,6 @@ struct TreeNode{
             return;
         }
         val = *pval;
-
-
     }
 };
 
@@ -70,33 +70,72 @@ std::ostream& operator<<(std::ostream &os, const vector<int> &vec){
     return os;
 }
 
-class Serialize{
-  private:
-    static TreeNode* tnode(const std::vector<int> &vals, size_t cnt){
-        int val = vals[cnt];
-        if (inf == val){
-            return nullptr;
+namespace {
+
+
+}
+
+std::ostream& operator<< (std::ostream &os, TreeNode *h){
+    std::queue<TreeNode*> q;
+    q.push(h);
+
+    while (!q.empty()){
+        auto now = q.front();
+        if (now){
+            os << now->val << ",";
+            q.push(now->left);
+            q.push(now->right);
+        }else {
+            os << "#,";
         }
 
-        auto head = new TreeNode(val);
-        size_t leftpos = (cnt << 1) | 1;
-        if (leftpos < vals.size()){
-            head->left  = tnode(vals, leftpos);
-        }
-        size_t rightpos = (cnt << 1) | 2;
-        if (rightpos < vals.size()){
-            head->right = tnode(vals, rightpos);
-        }
-        return head;
+        q.pop();
+
     }
+    return os;
+}
+
+
+
+class Serialize{
+  private:
 
   public:
     static ListNode* listnode(const std::initializer_list<int> &vals){
         return new ListNode(vals); 
     }
 
-    static TreeNode* treenode(const std::vector<int> &vals){
-        return tnode(vals, 0);
+    static TreeNode* treenode(const std::initializer_list<int> &vals){
+        std::queue<TreeNode*> q;
+        if (0 == vals.size()){
+            return nullptr;
+        }
+        auto root = new TreeNode(*vals.begin());
+
+        q.push(root);
+
+        for (auto ptr = vals.begin() + 1; ptr < vals.end(); ptr += 2){
+            if (q.empty()){
+                break;
+            }
+            auto now = q.front();
+            auto lval = *ptr, rval = inf;
+            if (ptr + 1 != vals.end()){
+                rval = *(ptr + 1);
+            }
+            if (inf != lval){
+                now->left = new TreeNode(lval);
+                q.push(now->left);
+            }
+            if (inf != rval){
+                now->right = new TreeNode(rval);
+                q.push(now->right);
+            }
+            q.pop();
+
+        }
+
+        return root;
     }
 
 
