@@ -63,7 +63,8 @@ std::ostream& operator<<(std::ostream& os, ListNode *head){
     return os;
 }
 
-std::ostream& operator<<(std::ostream &os, const vector<int> &vec){
+template<typename T>
+std::ostream& operator<<(std::ostream &os, const vector<T> &vec){
     for(auto &a : vec){
         os << a << " ";
     }
