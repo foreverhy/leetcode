@@ -17,6 +17,7 @@ using std::endl;
 using std::atoi;
 
 const int inf = 0x7fffffff;
+const int null = 0x7fffffff;
 
 struct TreeNode{
     int val;
@@ -29,7 +30,7 @@ struct TreeNode{
             return ;
         }
         auto pval = vals.begin();
-        if (inf == *pval){
+        if (null == *pval){
             return;
         }
         val = *pval;
@@ -120,15 +121,15 @@ class Serialize{
                 break;
             }
             auto now = q.front();
-            auto lval = *ptr, rval = inf;
+            auto lval = *ptr, rval = null;
             if (ptr + 1 != vals.end()){
                 rval = *(ptr + 1);
             }
-            if (inf != lval){
+            if (null != lval){
                 now->left = new TreeNode(lval);
                 q.push(now->left);
             }
-            if (inf != rval){
+            if (null != rval){
                 now->right = new TreeNode(rval);
                 q.push(now->right);
             }
