@@ -2,32 +2,17 @@
 
 
 
-
 #include <algorithm>
 #include <cstring>
 
 class Solution{
   public:
-    void rotate(vector<int> &nums, int k) {
-        int sz = nums.size();
-        k %= sz;
-        if (0 == k) return;
-        if (k == (sz >> 1)) {
-            for (int i = 0; i < k; ++i) {
-                std::swap(nums[i], nums[i + k]);
-            }
-            return;
-        }
-        int idx = 0;
-        int val = nums[0];
-        int cnt = sz;
-        while(cnt--) {
-            auto target = (idx + k) % sz;
-            cout << val << " " << nums[target] << endl;
-            std::swap(val, nums[target]);
-            idx = target;
-        }
-    }
+	void rotate(vector<int> &nums, int k) {
+		k %= nums.size();
+		std::reverse(nums.begin(), nums.end());
+		std::reverse(nums.begin(), nums.begin() + k);
+		std::reverse(nums.begin() + k, nums.end());
+	}
 };
 
 
